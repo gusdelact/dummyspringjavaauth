@@ -16,4 +16,8 @@ public class OrderServiceImpl implements OrderService {
     public boolean cancelOrder( String refNumber ){
     	return true;
     }
+    
+    public String autentica(String cadena) {
+    	return "elToken";
+    }
 }

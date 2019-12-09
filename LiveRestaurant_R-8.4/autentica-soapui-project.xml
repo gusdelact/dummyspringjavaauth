@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="044b0913-6d77-4cff-849e-d62835229b46" activeEnvironment="Default" name="autentica" resourceRoot="" soapui-version="5.5.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="08118321-1b88-4844-888a-9b50497b43ac" wsaVersion="NONE" name="OrderServiceSoap11" type="wsdl" bindingName="{http://spring.io/guides/gs-producing-web-service}OrderServiceSoap11" soapVersion="1_1" anonymous="optional" definition="file:/Users/awsgus/git/dummyspringjavaauth/LiveRestaurant_R-8.4-Client/autentica.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/Users/awsgus/git/dummyspringjavaauth/LiveRestaurant_R-8.4-Client/autentica.wsdl"><con:part><con:url>file:/Users/awsgus/git/dummyspringjavaauth/LiveRestaurant_R-8.4-Client/autentica.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://spring.io/guides/gs-producing-web-service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.packtpub.com/liverestaurant/OrderService/schema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://spring.io/guides/gs-producing-web-service">
+  <wsdl:types>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.packtpub.com/liverestaurant/OrderService/schema" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:QOrder="http://www.packtpub.com/liverestaurant/OrderService/schema" xmlns:tns="http://www.packtpub.com/liverestaurant/OrderService/schema">
+      <element name="AutenticaRequest">
+        <complexType>
+          <sequence>
+            <element minOccurs="0" name="cadena" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="AutenticaResponse">
+        <complexType>
+          <sequence>
+            <element minOccurs="0" name="AutenticaResult" nillable="true" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="placeOrderRequest">
+        <complexType>
+          <sequence>
+            <element name="order" type="QOrder:Order"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="placeOrderResponse">
+        <complexType>
+          <sequence>
+            <element name="refNumber" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="cancelOrderRequest">
+        <complexType>
+          <sequence>
+            <element name="refNumber" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="cancelOrderResponse">
+        <complexType>
+          <sequence>
+            <element name="cancelled" type="boolean"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="Order">
+        <sequence>
+          <element name="refNumber" type="string"/>
+          <element name="customer" type="QOrder:Customer"/>
+          <element name="dateSubmitted" type="dateTime"/>
+          <element name="orderDate" type="dateTime"/>
+          <element maxOccurs="unbounded" minOccurs="1" name="items" type="QOrder:FoodItem"></element>
+        </sequence>
+      </complexType>
+      <complexType name="Customer">
+        <sequence>
+          <element name="addressPrimary" type="QOrder:Address"/>
+          <element name="addressSecondary" type="QOrder:Address"/>
+          <element name="name" type="QOrder:Name"/>
+        </sequence>
+      </complexType>
+      <complexType name="Name">
+        <sequence>
+          <element name="fName" type="string"/>
+          <element name="mName" type="string"/>
+          <element name="lName" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="Address">
+        <sequence>
+          <element name="doorNo" type="string"/>
+          <element name="building" type="string"/>
+          <element name="street" type="string"/>
+          <element name="city" type="string"/>
+          <element name="country" type="string"/>
+          <element name="phoneMobile" type="string"/>
+          <element name="phoneLandLine" type="string"/>
+          <element name="email" type="string"/>
+        </sequence>
+      </complexType>
+      <simpleType name="FoodItemType">
+        <restriction base="string">
+          <enumeration value="Snacks"/>
+          <enumeration value="Beverages"/>
+          <enumeration value="Starters"/>
+          <enumeration value="Meals"/>
+          <enumeration value="Coffee"/>
+          <enumeration value="Juices"/>
+          <enumeration value="Desserts"/>
+        </restriction>
+      </simpleType>
+      <complexType name="FoodItem">
+        <sequence>
+          <element name="type" type="QOrder:FoodItemType"/>
+          <element name="name" type="string"/>
+          <element name="quantity" type="double"/>
+        </sequence>
+      </complexType>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="AutenticaResponse">
+    <wsdl:part element="sch:AutenticaResponse" name="AutenticaResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="placeOrderResponse">
+    <wsdl:part element="sch:placeOrderResponse" name="placeOrderResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelOrderRequest">
+    <wsdl:part element="sch:cancelOrderRequest" name="cancelOrderRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AutenticaRequest">
+    <wsdl:part element="sch:AutenticaRequest" name="AutenticaRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="placeOrderRequest">
+    <wsdl:part element="sch:placeOrderRequest" name="placeOrderRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelOrderResponse">
+    <wsdl:part element="sch:cancelOrderResponse" name="cancelOrderResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="OrderService">
+    <wsdl:operation name="Autentica">
+      <wsdl:input message="tns:AutenticaRequest" name="AutenticaRequest"></wsdl:input>
+      <wsdl:output message="tns:AutenticaResponse" name="AutenticaResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="placeOrder">
+      <wsdl:input message="tns:placeOrderRequest" name="placeOrderRequest"></wsdl:input>
+      <wsdl:output message="tns:placeOrderResponse" name="placeOrderResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <wsdl:input message="tns:cancelOrderRequest" name="cancelOrderRequest"></wsdl:input>
+      <wsdl:output message="tns:cancelOrderResponse" name="cancelOrderResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderServiceSoap11" type="tns:OrderService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Autentica">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="AutenticaRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AutenticaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="placeOrder">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="placeOrderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="placeOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="cancelOrderRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderServiceService">
+    <wsdl:port binding="tns:OrderServiceSoap11" name="OrderServiceSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ws</con:endpoint></con:endpoints><con:operation id="b7610a97-c1f0-4b64-afe8-9927507cf971" isOneWay="false" action="" name="Autentica" bindingOperationName="Autentica" type="Request-Response" outputName="AutenticaResponse" inputName="AutenticaRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e1c0a522-7c91-4b13-8a10-17c7a158a63f" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sch="http://www.packtpub.com/liverestaurant/OrderService/schema">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sch:AutenticaRequest>
+         <!--Optional:-->
+         <sch:cadena>hola</sch:cadena>
+      </sch:AutenticaRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://spring.io/guides/gs-producing-web-service/OrderService/AutenticaRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="f00ab4ac-a616-488f-8872-f6d5a0e3d259" isOneWay="false" action="" name="cancelOrder" bindingOperationName="cancelOrder" type="Request-Response" outputName="cancelOrderResponse" inputName="cancelOrderRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="52840049-f77d-4027-89d1-3b9b7269c22d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sch="http://www.packtpub.com/liverestaurant/OrderService/schema">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sch:cancelOrderRequest>
+         <sch:refNumber>?</sch:refNumber>
+      </sch:cancelOrderRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://spring.io/guides/gs-producing-web-service/OrderService/cancelOrderRequest"/></con:call></con:operation><con:operation id="e63a3cf8-c822-49f9-87ee-88c69e885701" isOneWay="false" action="" name="placeOrder" bindingOperationName="placeOrder" type="Request-Response" outputName="placeOrderResponse" inputName="placeOrderRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d350e787-7060-4dd9-94a4-f521669560f9" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sch="http://www.packtpub.com/liverestaurant/OrderService/schema">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sch:placeOrderRequest>
+         <sch:order>
+            <sch:refNumber>?</sch:refNumber>
+            <sch:customer>
+               <sch:addressPrimary>
+                  <sch:doorNo>?</sch:doorNo>
+                  <sch:building>?</sch:building>
+                  <sch:street>?</sch:street>
+                  <sch:city>?</sch:city>
+                  <sch:country>?</sch:country>
+                  <sch:phoneMobile>?</sch:phoneMobile>
+                  <sch:phoneLandLine>?</sch:phoneLandLine>
+                  <sch:email>?</sch:email>
+               </sch:addressPrimary>
+               <sch:addressSecondary>
+                  <sch:doorNo>?</sch:doorNo>
+                  <sch:building>?</sch:building>
+                  <sch:street>?</sch:street>
+                  <sch:city>?</sch:city>
+                  <sch:country>?</sch:country>
+                  <sch:phoneMobile>?</sch:phoneMobile>
+                  <sch:phoneLandLine>?</sch:phoneLandLine>
+                  <sch:email>?</sch:email>
+               </sch:addressSecondary>
+               <sch:name>
+                  <sch:fName>?</sch:fName>
+                  <sch:mName>?</sch:mName>
+                  <sch:lName>?</sch:lName>
+               </sch:name>
+            </sch:customer>
+            <sch:dateSubmitted>?</sch:dateSubmitted>
+            <sch:orderDate>?</sch:orderDate>
+            <!--1 or more repetitions:-->
+            <sch:items>
+               <sch:type>?</sch:type>
+               <sch:name>?</sch:name>
+               <sch:quantity>?</sch:quantity>
+            </sch:items>
+         </sch:order>
+      </sch:placeOrderRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://spring.io/guides/gs-producing-web-service/OrderService/placeOrderRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer><con:crypto><con:source>/Users/awsgus/git/dummyspringjavaauth/LiveRestaurant_R-8.4-Client/src/test/resources/clientStore.jks</con:source><con:password>clientPassword</con:password><con:type>KEYSTORE</con:type></con:crypto><con:outgoing mustUnderstand="true"><con:name>politica</con:name><con:username>client</con:username><con:entry type="Signature" password="cliPkPassword"><con:configuration><crypto>clientStore.jks</crypto><keyIdentifierType>1</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>false</useSingleCert><prependSignature>true</prependSignature><digestAlgorithm/><customTokenValueType/><customTokenId/></con:configuration></con:entry></con:outgoing></con:wssContainer><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

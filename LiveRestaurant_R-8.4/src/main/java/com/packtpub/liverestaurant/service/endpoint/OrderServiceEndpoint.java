@@ -14,7 +14,8 @@ import org.springframework.ws.server.endpoint.annotation.XPathParam;
 import org.springframework.xml.transform.StringSource;
 
 import com.packtpub.liverestaurant.service.OrderService;
-
+import com.packtpub.liverestaurant.AutenticaRequest;
+import com.packtpub.liverestaurant.AutenticaResponse;
 /**
  * 
  * An annotated end-point that will be automatically detected by the Spring-WS framework, and handled by the appropriate adapter.
@@ -50,6 +51,13 @@ public class OrderServiceEndpoint {
 					"<tns:cancelOrderResponse xmlns:tns=\"http://www.packtpub.com/liverestaurant/OrderService/schema\"><tns:cancelled>"+orderService.cancelOrder(refNumber)+"</tns:cancelled></tns:cancelOrderResponse>");
 	}
 
+	@PayloadRoot(localPart = "AutenticaRequest", namespace = SERVICE_NS)
+	public @ResponsePayload
+	 AutenticaResponse handleAutenticaRequest(@RequestPayload AutenticaRequest source) throws Exception {		
+		AutenticaResponse respuesta = new AutenticaResponse();
+		respuesta.setToken(orderService.autentica(source.getCadena()));
+    	return  respuesta;
+	}
 
 
 }
